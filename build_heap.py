@@ -1,42 +1,56 @@
-# python3
+# python3 Elīza Mača RDCP0.grupa
 
+def put_down(data, i, swaps):
+    size=len(data)
+    minimalais_index = i
+    left = 2*i+1 
+    right = 2*i+2
+    if left < size and data[left] < data[minimalais_index]:
+        minimalais_index = left
+    if right < size and data[right] < data[minimalais_index]:
+        minimalais_index = right
+    if not minimalais_index == i:
+        swaps.append((i, minimalais_index))
+        data[i], data[minimalais_index] = data[minimalais_index], data[i]
+        put_down(data,minimalais_index,swaps)
 
 def build_heap(data):
-    swaps = []
-    # TODO: Creat heap and heap sort
     # try to achieve  O(n) and not O(n2)
-
-
+    # n=len(data)
+    swaps = []
+    for i in range(len(data)//2,-1,-1):
+        put_down(data, i, swaps)
     return swaps
 
 
 def main():
     
-    # TODO : add input and corresponding checks
-    # add another input for I or F 
-    # first two tests are from keyboard, third test is from a file
+    rezultats = input("Need to input 'F' or 'I':")
 
+    if "I" in rezultats:
+        n = int(input())
+        data = list(map(int, input().split()))
+        assert len(data) == n
 
-    # input from keyboard
-    n = int(input())
-    data = list(map(int, input().split()))
+    elif "F" in rezultats:
+        
+        print("Please write filename:")
+        myfile=input()
+        avots='./tests/'
 
-    # checks if lenght of data is the same as the said lenght
-    assert len(data) == n
+        with open(avots+myfile) as solis:
+            
+            n=int(solis.readline())
+            data=list(map(int,solis.readline().split()))
+       
+    else:
+        print("Error: wrong input")
+        return
 
-    # calls function to assess the data 
-    # and give back all swaps
     swaps = build_heap(data)
-
-    # TODO: output how many swaps were made, 
-    # this number should be less than 4n (less than 4*len(data))
-
-
-    # output all swaps
     print(len(swaps))
     for i, j in swaps:
         print(i, j)
-
 
 if __name__ == "__main__":
     main()
