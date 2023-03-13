@@ -3,14 +3,13 @@
 def put_down(data, i, swaps):
     size=len(data)
     minimalais_index = i
-    left = 2*i+1   # left child
-    right = 2*i+2  # right child
+    left = 2*i+1 
+    right = 2*i+2
     if left < size and data[left] < data[minimalais_index]:
         minimalais_index = left
     if right < size and data[right] < data[minimalais_index]:
         minimalais_index = right
     if not minimalais_index == i:
-    # if minimalais_index != i:
         swaps.append((i, minimalais_index))
         data[i], data[minimalais_index] = data[minimalais_index], data[i]
         put_down(data,minimalais_index,swaps)
@@ -39,7 +38,8 @@ def main():
         myfile=input()
         avots='./tests/'
 
-        with open(avots+myfile, mode="r") as solis:
+        with open(avots+myfile) as solis:
+            
             n=int(solis.readline())
             data=list(map(int,solis.readline().split()))
        
